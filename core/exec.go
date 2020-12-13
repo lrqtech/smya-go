@@ -3,23 +3,27 @@ package core
 import (
 	"fmt"
 	"os/exec"
+	"runtime"
 )
 
 // 执行命令
 func ExecShell(tp int, shell string) {
-	switch tp {
-	case 1:
+	if tp == 5 {
+		switch runtime.GOOS {
+		case "linux":
 
-	case 2:
+		case "windows":
+			cmd := exec.Command("cmd.exe", "/c", "start "+shell)
+			// cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
+			err := cmd.Run()
+			if err != nil {
+				fmt.Println(err)
+			}
+		case "darwin":
 
-	case 3:
-
-	case 4:
-
-	case 5:
-		err := exec.Command(shell)
-		if err != nil {
-			fmt.Println(err)
 		}
 	}
+	fmt.Println("Command dose not support")
+	fmt.Println("Please use GUI program")
+	fmt.Println("More information: https://smya.cn/download")
 }
