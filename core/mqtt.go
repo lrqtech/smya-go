@@ -23,8 +23,7 @@ var connectHandler mqtt.OnConnectHandler = func(client mqtt.Client) {
 
 var connectLostHandler mqtt.ConnectionLostHandler = func(client mqtt.Client, err error) {
 	fmt.Printf("Connect lost: %v \n", err)
-	fmt.Println("Try to reconnect......")
-	ReStartServer()
+	fmt.Println("Try to restart program")
 }
 
 // 连接并启动mqtt
