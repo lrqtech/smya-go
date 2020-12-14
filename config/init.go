@@ -19,11 +19,12 @@ func init() {
 	if *CliDeviceId == "" || *CliKey == "" {
 		fmt.Println("Param error")
 		fmt.Println("Please try again")
+		fmt.Println("Use 'smya -h' for help")
 		os.Exit(0)
 	} else {
 		DeviceId = *CliDeviceId
 		Key = *CliKey
-		fmt.Println("Set Device Id:", *CliDeviceId)
-		fmt.Println("Set Key", *CliKey)
+		fmt.Println("Set Device Id: ", *CliDeviceId)
+		fmt.Println("Set Safe Code: ", *CliKey)
 	}
 }
