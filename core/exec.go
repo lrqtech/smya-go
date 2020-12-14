@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"os/exec"
 	"runtime"
-	"syscall"
 )
 
 // 执行命令
@@ -20,7 +19,6 @@ func ExecShell(tp int, shell string) {
 			fmt.Println("Command has been executed")
 		case "windows":
 			cmd := exec.Command("cmd.exe", "/c", "start "+shell)
-			cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
 			err := cmd.Run()
 			if err != nil {
 				fmt.Println(err)
