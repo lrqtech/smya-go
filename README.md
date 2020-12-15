@@ -11,14 +11,8 @@
 
 - 使用方法
   
-    >
-    > **Ps：**
-    > 先填写好 conf.ini 里的信息DeviceId（设备id）和Key （安全码），然后在运行
-    > 建议给可执行文件 777 权限
-    >
- 
   * [下载](https://github.com/lrqtech/smya-go/releases)可执行文件
-    解压&运行./smya
+    解压&运行./smya -id DeviceId -passwd SafeCode
     
   * 自己编译打包
     
@@ -33,7 +27,7 @@
     > go build
     > 
     
-    运行./smya
+    运行./smya -id DeviceId -passwd SafeCode
 
 - 帮助&反馈
 
