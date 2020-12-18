@@ -34,17 +34,15 @@ func Login() (string, string) {
 	if err != nil {
 		fmt.Println("生成json字符串错误")
 	}
-	req := util.Request("POST", url, body, 108)
+	req := util.Request("POST", url, body, 1024)
 	var r Response
 	_ = json.Unmarshal(req, &r)
-	if r.Code == 0 {
-		return r.Data["server"], r.Data["subscribe"]
-	} else {
+	if r.Code != 0 {
 		fmt.Println("Account error")
 		fmt.Println("Please try again")
 		os.Exit(0)
 	}
-	return "", ""
+	return r.Data["server"], r.Data["subscribe"]
 }
 
 // 数据加密
