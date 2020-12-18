@@ -25,12 +25,14 @@ func init() {
 		if len(*CliDeviceId) != 32 {
 			fmt.Printf("The length of device id %s isn't enough \n ", *CliDeviceId)
 			fmt.Println("Please try again")
+			os.Exit(0)
 		} else {
 			DeviceId = *CliDeviceId
 		}
 		if len(*CliKey) != 6 {
 			fmt.Printf("The length of safe code %s isn't enough \n ", *CliKey)
 			fmt.Println("Please try again")
+			os.Exit(0)
 		} else {
 			Key = *CliKey
 		}
