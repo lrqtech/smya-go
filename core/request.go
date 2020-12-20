@@ -16,7 +16,7 @@ type Info struct {
 }
 
 type Response struct {
-	Code string
+	Code int
 	Msg  string
 	Data map[string]string
 }
@@ -33,7 +33,7 @@ func Login() (string, string) {
 	if err != nil {
 		fmt.Println("生成json字符串错误")
 	}
-	req := util.Request("POST", url, body, 108)
+	req := util.Request("POST", url, body, 1024)
 	var r Response
 	_ = json.Unmarshal(req, &r)
 	return r.Data["server"], r.Data["subscribe"]

@@ -14,7 +14,7 @@ var messageHandler mqtt.MessageHandler = func(client mqtt.Client, msg mqtt.Messa
 	str := ResDecrypt(msg.Payload())
 	command, commandType, commandName := GetDetail(str)
 	fmt.Printf("Run: %s \n", commandName)
-	ExecShell(commandType, command)
+	ExecShell(commandType, command, commandName)
 }
 
 var connectHandler mqtt.OnConnectHandler = func(client mqtt.Client) {
