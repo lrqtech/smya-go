@@ -14,12 +14,22 @@ func ExecShell(tp int, shell string, name string) {
 		} else {
 			switch runtime.GOOS {
 			case "linux":
-				cmd := exec.Command("/bin/bash", "-c", shell)
-				err := cmd.Run()
-				if err != nil {
-					fmt.Println(err)
+				switch runtime.GOARCH {
+				case "386", "amd64":
+					cmd := exec.Command("/bin/bash", "-c", shell)
+					err := cmd.Run()
+					if err != nil {
+						fmt.Println(err)
+					}
+					fmt.Println("Command has been executed")
+				case "mips", "mipsle":
+					cmd := exec.Command("/bin/ash", "-c", shell)
+					err := cmd.Run()
+					if err != nil {
+						fmt.Println(err)
+					}
+					fmt.Println("Command has been executed")
 				}
-				fmt.Println("Command has been executed")
 			case "windows":
 				cmd := exec.Command("cmd.exe", "/c", "start "+shell)
 				err := cmd.Run()

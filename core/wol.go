@@ -53,7 +53,7 @@ func WolWake(MacAddr string, Bdi string, Bip string, UPort string) {
 	fmt.Printf("... Broadcasting to: %s \n", bcastAddr)
 	n, err := conn.Write(bs)
 	if err == nil && n != 102 {
-		err = fmt.Errorf("magic packet sent was %d bytes (expected 102 bytes sent)", n)
+		err = fmt.Errorf("magic packet sent was %d bytes (expected 102 bytes sent) \n", n)
 		fmt.Println(err)
 	}
 	if err != nil {
@@ -70,7 +70,7 @@ func ipFromInterface(iface string) (*net.UDPAddr, error) {
 	}
 	addrs, err := ief.Addrs()
 	if err == nil && len(addrs) <= 0 {
-		err = fmt.Errorf("no address associated with interface %s", iface)
+		err = fmt.Errorf("no address associated with interface %s \n", iface)
 	}
 	if err != nil {
 		return nil, err
@@ -86,5 +86,5 @@ func ipFromInterface(iface string) (*net.UDPAddr, error) {
 			}
 		}
 	}
-	return nil, fmt.Errorf("no address associated with interface %s", iface)
+	return nil, fmt.Errorf("no address associated with interface %s \n", iface)
 }

@@ -4,7 +4,6 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
-	"os"
 	"smya/config"
 	"smya/util"
 	"strconv"
@@ -37,11 +36,6 @@ func Login() (string, string) {
 	req := util.Request("POST", url, body, 1024)
 	var r Response
 	_ = json.Unmarshal(req, &r)
-	if r.Code != 0 {
-		fmt.Println("Account error")
-		fmt.Println("Please try again")
-		os.Exit(0)
-	}
 	return r.Data["server"], r.Data["subscribe"]
 }
 
