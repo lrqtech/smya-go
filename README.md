@@ -10,9 +10,6 @@
   2. 可执行文件，无需其他多余依赖
 
 - 使用方法
-  
-  * [下载](https://github.com/lrqtech/smya-go/releases)可执行文件
-    解压&运行./smya -id DeviceId -passwd SafeCode
     
   * 自己编译打包
     
