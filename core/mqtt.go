@@ -32,7 +32,8 @@ var connectLostHandler mqtt.ConnectionLostHandler = func(client mqtt.Client, err
 func StartMqtt(server string, subscribe string) mqtt.Client {
 	switch config.Mode {
 	case "Debug", "debug", "DEBUG":
-		mqtt.DEBUG = log.New(os.Stdout, "[DEBUG] ", 0)
+		mqtt.ERROR = log.New(os.Stdout, "[ERROR] ", 0)
+		mqtt.CRITICAL = log.New(os.Stdout, "[CRIT] ", 0)
 	}
 	var broker = server
 	var port = 5201
