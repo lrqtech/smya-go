@@ -4,6 +4,8 @@ import (
 	"encoding/hex"
 	"fmt"
 	"github.com/eclipse/paho.mqtt.golang"
+	"log"
+	"os"
 	"smya/config"
 	"smya/util"
 	"strconv"
@@ -28,6 +30,10 @@ var connectLostHandler mqtt.ConnectionLostHandler = func(client mqtt.Client, err
 
 // 连接并启动mqtt
 func StartMqtt(server string, subscribe string) mqtt.Client {
+	switch config.Mode {
+	case "Debug", "debug", "DEBUG":
+		mqtt.DEBUG = log.New(os.Stdout, "[DEBUG] ", 0)
+	}
 	var broker = server
 	var port = 5201
 	opts := mqtt.NewClientOptions()
