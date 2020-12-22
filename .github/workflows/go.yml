@@ -1,0 +1,38 @@
+name: Release
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Set up Go 1.15
+      uses: actions/setup-go@v2
+      with:
+        go-version: ^1.15
+
+    - name: Check out code into the Go module directory
+      uses: actions/checkout@v2
+
+    - name: Get dependencies
+      run: |
+        go env -w GO111MODULE=on
+        go mod tidy
+
+    - name: Validates GO releaser config
+      uses: docker://goreleaser/goreleaser:latest
+      with:
+        args: check
+
+    - name: Create release on GitHub
+      uses: docker://goreleaser/goreleaser:latest
+      with:
+        args: release
+      env:
+        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        
