@@ -57,13 +57,13 @@ builds:
         goarch: mips64le 
 
 release:
-  disable: false
-  name_template: "{{.ProjectName}}-v{{.Version}}"
+  format_overrides:
+    - goos: windows
+      format: zip
   
 changelog:
   sort: asc
   filters:
     exclude:
     - '^docs:'
-    - '^test:'
-    
+    - '^test:' 
