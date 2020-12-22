@@ -56,7 +56,7 @@ builds:
       - goos: windows
         goarch: mips64le 
 
-release:
+archives:
   format_overrides:
     - goos: windows
       format: zip
