@@ -58,3 +58,14 @@ builds:
     
 source:
   enabled: true   
+
+release:
+  github:
+    owner: lrqtech
+    name: smya-go
+
+  draft: true
+  prerelease: auto
+  name_template: "{{.ProjectName}}-v{{.Version}}"
+  
+  
