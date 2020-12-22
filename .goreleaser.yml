@@ -56,3 +56,5 @@ builds:
 
     skip: false
     
+source:
+  enabled: true   
