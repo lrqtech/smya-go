@@ -1,7 +1,9 @@
+project_name: smya
 builds:
   - 
     id: "build"
     main: ./main.go
+    binary: smya
     
     ldflags:
      - -s -w
@@ -52,11 +54,16 @@ builds:
       - goos: windows
         goarch: mips64
       - goos: windows
-        goarch: mips64le
-    
-source:
-  enabled: true   
+        goarch: mips64le 
 
 release:
   disable: false
   name_template: "{{.ProjectName}}-v{{.Version}}"
+  
+changelog:
+  sort: asc
+  filters:
+    exclude:
+    - '^docs:'
+    - '^test:'
+    
