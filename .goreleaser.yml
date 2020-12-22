@@ -53,19 +53,10 @@ builds:
         goarch: mips64
       - goos: windows
         goarch: mips64le
-
-    skip: false
     
 source:
   enabled: true   
 
 release:
-  github:
-    owner: lrqtech
-    name: smya-go
-
-  draft: true
-  prerelease: auto
+  disable: false
   name_template: "{{.ProjectName}}-v{{.Version}}"
-  
-  
