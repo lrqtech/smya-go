@@ -55,11 +55,6 @@ builds:
         goarch: mips64
       - goos: windows
         goarch: mips64le 
-
-archives:
-  format_overrides:
-    - goos: windows
-      format: zip
   
 changelog:
   sort: asc
