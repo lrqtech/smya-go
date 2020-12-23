@@ -51,7 +51,7 @@ func StartMqtt(server string, subscribe string) mqtt.Client {
 	switch config.Mode {
 	case "Debug", "debug", "DEBUG":
 		fmt.Println("Probe: ")
-		fmt.Printf("Mqtt config: \n SetClientID: %s \n SetUsername: %s \n SetPassword: %s \n SetKeepAlive: %d \n", config.DeviceId, config.DeviceId, subscribe, 60*time.Second)
+		fmt.Printf("Mqtt config: \n SetClientID: %s \n SetUsername: %s \n SetPassword: %s \n SetKeepAlive: %d millisecond \n", config.DeviceId, config.DeviceId, subscribe, 60*time.Second)
 	}
 	opts.SetClientID(config.DeviceId)
 	opts.SetUsername(config.DeviceId)
