@@ -34,17 +34,34 @@ func StartMqtt(server string, subscribe string) mqtt.Client {
 	case "Debug", "debug", "DEBUG":
 		mqtt.ERROR = log.New(os.Stdout, "[ERROR] ", 0)
 		mqtt.CRITICAL = log.New(os.Stdout, "[CRIT] ", 0)
+		fmt.Println("Probe: ")
+		fmt.Printf("Get mqtt address: %s \n", server)
 	}
 	var broker = server
 	var port = 5201
 	opts := mqtt.NewClientOptions()
+	switch config.Mode {
+	case "Debug", "debug", "DEBUG":
+		fmt.Println("Probe: ")
+		fmt.Printf("Mqtt address: %s \n", fmt.Sprintf("tcp://%s:%d", broker, port))
+	}
 	opts.AddBroker(fmt.Sprintf("tcp://%s:%d", broker, port))
 	opts.OnConnect = connectHandler
 	opts.OnConnectionLost = connectLostHandler
+	switch config.Mode {
+	case "Debug", "debug", "DEBUG":
+		fmt.Println("Probe: ")
+		fmt.Printf("Mqtt config: \n SetClientID: %s \n SetUsername: %s \n SetPassword: %s \n SetKeepAlive: %d \n", config.DeviceId, config.DeviceId, subscribe, 60*time.Second)
+	}
 	opts.SetClientID(config.DeviceId)
 	opts.SetUsername(config.DeviceId)
 	opts.SetPassword(subscribe)
 	opts.SetKeepAlive(60 * time.Second)
+	switch config.Mode {
+	case "Debug", "debug", "DEBUG":
+		fmt.Println("Probe: ")
+		fmt.Println("Starting mqtt connection ...... ")
+	}
 	client := mqtt.NewClient(opts)
 	token := client.Connect()
 	if token.Error() != nil {
@@ -55,6 +72,12 @@ func StartMqtt(server string, subscribe string) mqtt.Client {
 
 // 订阅
 func Subscribe(client mqtt.Client, subscribe string) {
+	switch config.Mode {
+	case "Debug", "debug", "DEBUG":
+		fmt.Println("Probe: ")
+		fmt.Printf("Subscribe address: %s \n", fmt.Sprintf("client/%s", subscribe))
+		fmt.Println("Qos: 1")
+	}
 	topic := fmt.Sprintf("client/%s", subscribe)
 	token := client.Subscribe(topic, 1, messageHandler)
 	token.Wait()
