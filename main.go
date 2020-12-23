@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"smya/config"
 	"smya/core"
 )
@@ -12,6 +13,10 @@ func main() {
 	server, subscribe := core.Login()
 	client := core.StartMqtt(server, subscribe)
 	for {
+		if subscribe == "" {
+			fmt.Println("Subscribe Error")
+			os.Exit(0)
+		}
 		core.Subscribe(client, subscribe)
 	}
 }
