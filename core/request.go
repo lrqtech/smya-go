@@ -3,56 +3,32 @@ package core
 import (
 	"encoding/hex"
 	"encoding/json"
-	"fmt"
 	"smya/config"
+	"smya/model"
 	"smya/util"
 	"strconv"
 	"time"
 )
 
-type Info struct {
-	DeviceId string `json:"device_id"`
-	Str      string `json:"str"`
-}
-
-type Response struct {
-	Code int
-	Msg  string
-	Data map[string]string
-}
-
 // 登入
 func Login() (string, string) {
 	str := ResEncrypt()
 	url := "https://smya.cn/client/login"
-	data := Info{
+	data := model.Info{
 		DeviceId: config.DeviceId,
 		Str:      str,
 	}
-	body, err := json.Marshal(data)
-	if err != nil {
-		fmt.Println("生成json字符串错误")
-	}
-	switch config.Mode {
-	case "Debug", "debug", "DEBUG":
-		fmt.Println("Probe: ")
-		fmt.Printf("Request URL: %s \n", url)
-		fmt.Printf("Request body: %s \n", body)
-	}
+	body, _ := json.Marshal(data)
 	req := util.Request("POST", url, body, 1024)
-	switch config.Mode {
-	case "Debug", "debug", "DEBUG":
-		fmt.Println("Probe: ")
-		fmt.Printf("Response: %s \n", string(req))
-	}
-	var r Response
+	var r model.Response
 	_ = json.Unmarshal(req, &r)
 	return r.Data["server"], r.Data["subscribe"]
 }
 
 // 数据加密
 func ResEncrypt() string {
-	CurrentHour := strconv.Itoa(time.Now().Hour())
+	loc, _ := time.LoadLocation("Asia/Shanghai")
+	CurrentHour := strconv.Itoa(time.Now().In(loc).Hour())
 	if len(CurrentHour) == 1 {
 		CurrentHour += "0"
 	}

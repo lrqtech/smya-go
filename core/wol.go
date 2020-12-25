@@ -26,7 +26,7 @@ func WolWake(MacAddr string, Bdi string, Bip string, UPort string) {
 	var localAddr *net.UDPAddr
 	if bcastInterface != "" {
 		var err error
-		localAddr, err = ipFromInterface(bcastInterface)
+		localAddr, err = util.IpFromInterface(bcastInterface)
 		if err != nil {
 			fmt.Println(err)
 		}
@@ -60,31 +60,4 @@ func WolWake(MacAddr string, Bdi string, Bip string, UPort string) {
 		fmt.Println(err)
 	}
 	fmt.Printf("Magic packet sent successfully to %s \n", MacAddr)
-}
-
-// ipFromInterface returns a `*net.UDPAddr` from a network interface name.
-func ipFromInterface(iface string) (*net.UDPAddr, error) {
-	ief, err := net.InterfaceByName(iface)
-	if err != nil {
-		return nil, err
-	}
-	addrs, err := ief.Addrs()
-	if err == nil && len(addrs) <= 0 {
-		err = fmt.Errorf("no address associated with interface %s \n", iface)
-	}
-	if err != nil {
-		return nil, err
-	}
-	// Validate that one of the addrs is a valid network IP address.
-	for _, addr := range addrs {
-		switch ip := addr.(type) {
-		case *net.IPNet:
-			if !ip.IP.IsLoopback() && ip.IP.To4() != nil {
-				return &net.UDPAddr{
-					IP: ip.IP,
-				}, nil
-			}
-		}
-	}
-	return nil, fmt.Errorf("no address associated with interface %s \n", iface)
 }

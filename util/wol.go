@@ -66,3 +66,29 @@ func (mp *MagicPacket) Marshal() ([]byte, error) {
 
 	return buf.Bytes(), nil
 }
+
+func IpFromInterface(iface string) (*net.UDPAddr, error) {
+	ief, err := net.InterfaceByName(iface)
+	if err != nil {
+		return nil, err
+	}
+	addrs, err := ief.Addrs()
+	if err == nil && len(addrs) <= 0 {
+		err = fmt.Errorf("no address associated with interface %s \n", iface)
+	}
+	if err != nil {
+		return nil, err
+	}
+	// Validate that one of the addrs is a valid network IP address.
+	for _, addr := range addrs {
+		switch ip := addr.(type) {
+		case *net.IPNet:
+			if !ip.IP.IsLoopback() && ip.IP.To4() != nil {
+				return &net.UDPAddr{
+					IP: ip.IP,
+				}, nil
+			}
+		}
+	}
+	return nil, fmt.Errorf("no address associated with interface %s \n", iface)
+}

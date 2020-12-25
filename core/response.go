@@ -1,15 +1,13 @@
 package core
 
-import "encoding/json"
+import (
+	"encoding/json"
+	"smya/model"
+)
 
-type ResultJson struct {
-	Command     string `json:"command"`
-	CommandType int    `json:"type"`
-	CommandName string `json:"command_name"`
-}
-
+// 解析下发命令json
 func GetDetail(j string) (string, int, string) {
-	var r ResultJson
+	var r model.ResultJson
 	_ = json.Unmarshal([]byte(j), &r)
 	return r.Command, r.CommandType, r.CommandName
 }

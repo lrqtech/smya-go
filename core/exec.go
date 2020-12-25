@@ -1,13 +1,16 @@
 package core
 
 import (
+	"bufio"
 	"fmt"
+	mqtt "github.com/eclipse/paho.mqtt.golang"
+	"io/ioutil"
 	"os/exec"
 	"runtime"
 )
 
 // 执行命令
-func ExecShell(tp int, shell string, name string) {
+func ExecShell(client mqtt.Client, tp int, shell string, name string) {
 	if tp == 5 {
 		if name == "wol" || name == "WOL" {
 			WolWake(shell, "", "", "")
@@ -17,33 +20,61 @@ func ExecShell(tp int, shell string, name string) {
 				switch runtime.GOARCH {
 				case "386", "amd64":
 					cmd := exec.Command("/bin/bash", "-c", shell)
-					err := cmd.Run()
+					stdout, err := cmd.StdoutPipe()
 					if err != nil {
 						fmt.Println(err)
 					}
-					fmt.Println("Command has been executed")
+					_ = cmd.Start()
+					t, err := ioutil.ReadAll(bufio.NewReader(stdout))
+					if err != nil {
+						fmt.Println(err)
+					}
+					s := "Command has been executed"
+					text := fmt.Sprintf("Run: %s \n %s \n %s \n", name, t, s)
+					Publish(client, MsgFmtJson(text))
 				case "mips", "mipsle":
 					cmd := exec.Command("/bin/ash", "-c", shell)
-					err := cmd.Run()
+					stdout, err := cmd.StdoutPipe()
 					if err != nil {
 						fmt.Println(err)
 					}
-					fmt.Println("Command has been executed")
+					_ = cmd.Start()
+					t, err := ioutil.ReadAll(bufio.NewReader(stdout))
+					if err != nil {
+						fmt.Println(err)
+					}
+					s := "Command has been executed"
+					text := fmt.Sprintf("Run: %s \n %s \n %s \n", name, t, s)
+					Publish(client, MsgFmtJson(text))
 				}
 			case "windows":
 				cmd := exec.Command("cmd.exe", "/c", "start "+shell)
-				err := cmd.Run()
+				stdout, err := cmd.StdoutPipe()
 				if err != nil {
 					fmt.Println(err)
 				}
-				fmt.Println("Command has been executed")
+				_ = cmd.Start()
+				t, err := ioutil.ReadAll(bufio.NewReader(stdout))
+				if err != nil {
+					fmt.Println(err)
+				}
+				s := "Command has been executed"
+				text := fmt.Sprintf("Run: %s \n %s \n %s \n", name, t, s)
+				Publish(client, MsgFmtJson(text))
 			case "darwin":
 				cmd := exec.Command("/usr/bin/", "-c", shell)
-				err := cmd.Run()
+				stdout, err := cmd.StdoutPipe()
 				if err != nil {
 					fmt.Println(err)
 				}
-				fmt.Println("Command has been executed")
+				_ = cmd.Start()
+				t, err := ioutil.ReadAll(bufio.NewReader(stdout))
+				if err != nil {
+					fmt.Println(err)
+				}
+				s := "Command has been executed"
+				text := fmt.Sprintf("Run: %s \n %s \n %s \n", name, t, s)
+				Publish(client, MsgFmtJson(text))
 			}
 		}
 	} else {
