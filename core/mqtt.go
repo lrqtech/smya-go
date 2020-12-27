@@ -43,6 +43,8 @@ func StartMqtt(server string, subscribe string) mqtt.Client {
 	if token.Error() != nil {
 		fmt.Println(token.Error())
 	}
+	fmt.Println("Monitor address:")
+	fmt.Println(GenPubAddr())
 	go Publish(client, "ok")
 	return client
 }
