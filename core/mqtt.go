@@ -43,6 +43,7 @@ func StartMqtt(server string, subscribe string) mqtt.Client {
 	if token.Error() != nil {
 		fmt.Println(token.Error())
 	}
+	go Publish(client, "ok")
 	return client
 }
 
