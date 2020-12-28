@@ -15,25 +15,20 @@
 - 使用方法
     
   * 自己编译打包
-  1.下载golang 
-    Windows https://golang.google.cn/dl/go1.15.6.windows-amd64.msi
-    Mac     https://golang.google.cn/dl/go1.15.6.darwin-amd64.pkg
-    Linux   https://golang.google.cn/dl/go1.15.6.linux-amd64.tar.gz
-  2.下载此源码
-    点code->Download Zip
-  3.进入源码路径并下载环境包
-    解压zip文件，进入"smya-go-main" 
-    然后在资源管理器的地址栏输入cmd 会自动在cmd进入smya源码根目录
-    cmd输入go mod download 回车
-    如果报错. 输入go env -w GOPROXY=https://goproxy.cn,direct 再执行上面的
-  4.编译
-    go build -ldflags "-w -s"
-    等好了之后 源码根目录会出现一个smya.exe
-- 运行
-  打开cmd运行smya.exe -id {DeviceId} -passwd {SafeCode}
-     
-- 帮助&反馈
+    
+    下载本代码
+    进入代码目录
+  
+    >
+    > go mod tidy
+    >
+    
+    >
+    > go build
+    > 
+    
+    运行./smya -id DeviceId -passwd SafeCode
 
-  神秘鸭用户交流与反馈官方群：144614486
+- 帮助&反馈
 
   有任何问题，欢迎提交Issue
