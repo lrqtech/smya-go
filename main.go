@@ -3,18 +3,20 @@ package main
 import (
 	"fmt"
 	"os"
-	"smya/core"
+	"smya/mqtt"
+	"smya/request"
 )
 
 func main() {
 	fmt.Println("Starting ......")
-	server, subscribe := core.Login()
-	client := core.StartMqtt(server, subscribe)
+	server, subscribe := request.Login()
+	client := mqtt.Client(server, subscribe)
 	if subscribe == "" {
-		fmt.Println("Subscribe Error")
+		fmt.Println("Subscribe address error")
+		fmt.Println("Please restart program again")
 		os.Exit(0)
 	}
 	for {
-		core.Subscribe(client, subscribe)
+		mqtt.Subscribe(client, subscribe)
 	}
 }

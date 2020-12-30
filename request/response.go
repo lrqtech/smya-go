@@ -1,4 +1,4 @@
-package core
+package request
 
 import (
 	"encoding/json"
