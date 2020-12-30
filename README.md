@@ -14,6 +14,8 @@
   
 - 使用方法
     
+  * [下载](https://github.com/lrqtech/smya-go/releases) 二进制文件
+    
   * 自己编译打包
     
     下载本代码
