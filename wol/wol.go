@@ -1,4 +1,4 @@
-package util
+package wol
 
 import (
 	"bytes"
@@ -24,7 +24,7 @@ type MagicPacket struct {
 }
 
 // New returns a magic packet based on a mac address string.
-func WolNew(mac string) (*MagicPacket, error) {
+func WakeWol(mac string) (*MagicPacket, error) {
 	var packet MagicPacket
 	var macAddr MACAddress
 

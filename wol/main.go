@@ -3,11 +3,10 @@ package wol
 import (
 	"fmt"
 	"net"
-	"smya/util"
 )
 
 // wol唤醒
-func WolWake(MacAddr string, Bdi string, Bip string, UPort string) {
+func Wake(MacAddr string, Bdi string, Bip string, UPort string) {
 	if len(MacAddr) <= 0 {
 		fmt.Println("No mac address specified to wake command")
 	}
@@ -26,7 +25,7 @@ func WolWake(MacAddr string, Bdi string, Bip string, UPort string) {
 	var localAddr *net.UDPAddr
 	if bcastInterface != "" {
 		var err error
-		localAddr, err = util.IpFromInterface(bcastInterface)
+		localAddr, err = IpFromInterface(bcastInterface)
 		if err != nil {
 			fmt.Println(err)
 		}
@@ -36,7 +35,7 @@ func WolWake(MacAddr string, Bdi string, Bip string, UPort string) {
 	if err != nil {
 		fmt.Println(err)
 	}
-	mp, err := util.WolNew(MacAddr)
+	mp, err := WakeWol(MacAddr)
 	if err != nil {
 		fmt.Println(err)
 	}

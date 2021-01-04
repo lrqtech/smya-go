@@ -11,7 +11,7 @@ import (
 func Shell(tp int, shell string, name string) {
 	if tp == 5 {
 		if name == "wol" || name == "WOL" {
-			wol.WolWake(shell, "", "", "")
+			wol.Wake(shell, "", "", "")
 		} else {
 			switch runtime.GOOS {
 			case "linux":
