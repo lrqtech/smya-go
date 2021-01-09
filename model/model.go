@@ -16,3 +16,7 @@ type ResultJson struct {
 	CommandType int    `json:"type"`
 	CommandName string `json:"command_name"`
 }
+
+type GetTime struct {
+	CurrentHour string `json:"h"`
+}

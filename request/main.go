@@ -5,6 +5,7 @@ import (
 	"smya/config"
 	"smya/model"
 	"smya/resource"
+	"smya/util"
 )
 
 // 登入
@@ -16,7 +17,7 @@ func Login() (string, string) {
 		Str:      str,
 	}
 	body, _ := json.Marshal(data)
-	req := Request("POST", url, body, 1024)
+	req := util.Request("POST", url, body, 1024)
 	var r model.Response
 	_ = json.Unmarshal(req, &r)
 	return r.Data["server"], r.Data["subscribe"]
