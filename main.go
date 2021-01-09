@@ -3,12 +3,16 @@ package main
 import (
 	"fmt"
 	"os"
+	"smya/cache"
+	"smya/corn"
 	"smya/mqtt"
 	"smya/request"
 )
 
 func main() {
 	fmt.Println("Starting ......")
+	cache.InitCache()
+	corn.TimeTask()
 	server, subscribe := request.Login()
 	client := mqtt.Client(server, subscribe)
 	if subscribe == "" {
