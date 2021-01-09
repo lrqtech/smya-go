@@ -19,9 +19,9 @@ func GetTime() string {
 // 设置缓存时间
 func SetHour() {
 	CurrentHour := GetTime()
-	cache.SetCache("CurrentHour", CurrentHour)
+	cache.SetCache("CurrentHour", CurrentHour, cache.BigCache)
 }
 
 func GetHour() string {
-	return cache.GetCache("CurrentHour")
+	return cache.GetCache("CurrentHour", cache.BigCache)
 }

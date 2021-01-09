@@ -7,7 +7,7 @@ import (
 )
 
 var (
-	bigCache *bigcache.BigCache
+	BigCache *bigcache.BigCache
 )
 
 //创建 bigcache
@@ -21,23 +21,23 @@ func InitCache() {
 		HardMaxCacheSize:   0,               // 设置缓存最大值，以MB为单位，超过了不在分配内存。0表示无限制分配
 	}
 	var err error
-	bigCache, err = bigcache.NewBigCache(config)
+	BigCache, err = bigcache.NewBigCache(config)
 	if err != nil {
 		fmt.Println(err)
 	}
 }
 
 // 设置缓存
-func SetCache(key string, value string) {
-	err := bigCache.Set(key, []byte(value))
+func SetCache(key string, value string, cc *bigcache.BigCache) {
+	err := cc.Set(key, []byte(value))
 	if err != nil {
 		fmt.Println(err)
 	}
 }
 
 // 获取缓存
-func GetCache(key string) string {
-	data, err := bigCache.Get(key)
+func GetCache(key string, cc *bigcache.BigCache) string {
+	data, err := cc.Get(key)
 	if err != nil {
 		fmt.Println(err)
 	}

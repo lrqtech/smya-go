@@ -6,6 +6,7 @@ import (
 	"smya/cache"
 	"smya/corn"
 	"smya/mqtt"
+	"smya/mytime"
 	"smya/request"
 )
 
@@ -13,7 +14,7 @@ func main() {
 	fmt.Println("Starting ......")
 	cache.InitCache()
 	go corn.TimeTask()
-	// mytime.SetHour()
+	mytime.SetHour()
 	server, subscribe := request.Login()
 	client := mqtt.Client(server, subscribe)
 	if subscribe == "" {
