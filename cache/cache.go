@@ -29,11 +29,17 @@ func InitCache() {
 
 // 设置缓存
 func SetCache(key string, value string) {
-	_ = bigCache.Set(key, []byte(value))
+	err := bigCache.Set(key, []byte(value))
+	if err != nil {
+		fmt.Println(err)
+	}
 }
 
 // 获取缓存
 func GetCache(key string) string {
-	data, _ := bigCache.Get(key)
+	data, err := bigCache.Get(key)
+	if err != nil {
+		fmt.Println(err)
+	}
 	return string(data)
 }
