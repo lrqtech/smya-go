@@ -12,7 +12,8 @@ import (
 func main() {
 	fmt.Println("Starting ......")
 	cache.InitCache()
-	corn.TimeTask()
+	go corn.TimeTask()
+	// mytime.SetHour()
 	server, subscribe := request.Login()
 	client := mqtt.Client(server, subscribe)
 	if subscribe == "" {

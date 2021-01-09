@@ -14,4 +14,5 @@ func TimeTask() {
 		fmt.Println(err)
 	}
 	crontab.Start()
+	select {}
 }
