@@ -16,7 +16,7 @@ func Shell(tp int, shell string, name string) {
 			switch runtime.GOOS {
 			case "linux":
 				switch runtime.GOARCH {
-				case "386", "amd64":
+				case "386", "amd64", "arm", "arm64":
 					fmt.Printf("Run: %s", name)
 					cmd := exec.Command("/bin/bash", "-c", shell)
 					err := cmd.Run()
